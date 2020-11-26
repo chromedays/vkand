@@ -4,8 +4,11 @@
           versionCode="1"
           versionName="0.1">
     <uses-sdk android:minSdkVersion="29"/>
-    <application android:label="vkand">
-        <activity android:name=".MainActivity">
+    <application android:label="vkand"
+                 android:hasCode="false">
+        <activity android:name="android.app.NativeActivity">
+            <meta-data android:name="android.app.lib_name"
+                       android:value="hello"/>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
