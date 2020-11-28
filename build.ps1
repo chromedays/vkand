@@ -21,11 +21,11 @@ function Build {
     # & javac -bootclasspath "$env:JAVA_HOME\jre\lib\rt.jar" -classpath "$PLATFORM\android.jar" -d "build\obj" "build\gen\$ORG_DIRS\R.java" "src\$ORG_DIRS\MainActivity.java"
     # & javah -classpath "$PLATFORM\android.jar;build\obj" -o "build\tmp\jni.h" "$PACKAGE.MainActivity"
     echo "Compiling to libandroid_native_app_glue.so"
-    & $CLANG -c -o "build\obj\android_native_app_glue.o" "$NDK\sources\android\native_app_glue\android_native_app_glue.c"
+    & $CLANG -c -g -o "build\obj\android_native_app_glue.o" "$NDK\sources\android\native_app_glue\android_native_app_glue.c"
     # & $AR -rc libandroid_native_app_glue.a "build\apk\lib\arm64-v8a\android_native_app_glue.o"
     & $AR -rc "build\apk\lib\arm64-v8a\libandroid_native_app_glue.a" "build\obj\android_native_app_glue.o"
     echo "Compiling to libhello.so"
-    & $CLANG -shared -o "build\apk\lib\arm64-v8a\libhello.so" "src\$ORG_DIRS\hello.c" -I"$NDK\sources\android\native_app_glue" -L"build\apk\lib\arm64-v8a" -landroid_native_app_glue  -llog -landroid -lEGL -lGLESv2
+    & $CLANG -shared -g -o "build\apk\lib\arm64-v8a\libhello.so" "src\$ORG_DIRS\hello.c" -I"$NDK\sources\android\native_app_glue" -L"build\apk\lib\arm64-v8a" -landroid_native_app_glue  -llog -landroid -lEGL -lGLESv2
     # echo "DX"
     # & "$BUILD_TOOLS\dx" --dex --output="build\apk\classes.dex" "build\obj"
     echo "Executing aapt again"
